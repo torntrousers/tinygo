@@ -330,7 +330,10 @@ func FlashGDB(pkgName string, ocdOutput bool, options *compileopts.Options) erro
 			// GDB (to break the currently executing program).
 			setCommandAsDaemon(daemon)
 			// Start now, and kill it on exit.
-			daemon.Start()
+			err = daemon.Start()
+			if err != nil {
+				return &commandError{"failed to run " + config.Target.Emulator[0] + ":", tmppath, err}
+			}
 			defer func() {
 				daemon.Process.Signal(os.Interrupt)
 				// Maybe we should send a .Kill() after x seconds?
@@ -355,7 +358,10 @@ func FlashGDB(pkgName string, ocdOutput bool, options *compileopts.Options) erro
 			// GDB (to break the currently executing program).
 			setCommandAsDaemon(daemon)
 			// Start now, and kill it on exit.
-			daemon.Start()
+			err := daemon.Start()
+			if err != nil {
+				return &commandError{"failed to run " + config.Target.Emulator[0] + ":", tmppath, err}
+			}
 			defer func() {
 				daemon.Process.Signal(os.Interrupt)
 				// Maybe we should send a .Kill() after x seconds?
@@ -375,7 +381,10 @@ func FlashGDB(pkgName string, ocdOutput bool, options *compileopts.Options) erro
 			setCommandAsDaemon(daemon)
 
 			// Start now, and kill it on exit.
-			daemon.Start()
+			err := daemon.Start()
+			if err != nil {
+				return &commandError{"failed to run " + config.Target.Emulator[0] + ":", tmppath, err}
+			}
 			defer func() {
 				daemon.Process.Signal(os.Interrupt)
 				// Maybe we should send a .Kill() after x seconds?
@@ -395,7 +404,10 @@ func FlashGDB(pkgName string, ocdOutput bool, options *compileopts.Options) erro
 			setCommandAsDaemon(daemon)
 
 			// Start now, and kill it on exit.
-			daemon.Start()
+			err := daemon.Start()
+			if err != nil {
+				return &commandError{"failed to run " + config.Target.Emulator[0] + ":", tmppath, err}
+			}
 			defer func() {
 				daemon.Process.Signal(os.Interrupt)
 				// Maybe we should send a .Kill() after x seconds?
